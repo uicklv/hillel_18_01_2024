@@ -2,6 +2,8 @@
 
 define('APP_DIR', __DIR__ . '/');
 define('LOG_DIR', __DIR__ . '/logs/');
+define('CONTROLLERS_DIR', __DIR__ . '/controllers/');
+define('VIEWS_DIR', __DIR__ . '/views/');
 define('LOG_FILE', 'logs.txt');
 
 define('DB_HOST', 'mysql');
@@ -11,19 +13,24 @@ define('DB_CHARSET', 'utf8mb4');
 define('DB_USER', 'root');
 define('DB_PASSWORD', 'root');
 
+require_once APP_DIR . 'system/View.php';
+require_once APP_DIR . 'functions.php';
 require_once APP_DIR . 'database/Connector.php';
 require_once APP_DIR . 'database/SQLQueryBuilder.php';
 require_once APP_DIR . 'database/MySqlQueryBuilder.php';
 require_once APP_DIR . 'database/Repository.php';
 require_once APP_DIR . 'database/UserRepository.php';
-
-$builder = new MySqlQueryBuilder();
-
-$userRepository = new UserRepository(Connector::getInstance(), $builder);
-
-echo "<pre>";
-print_r($userRepository->find(8));
-echo "<pre>";
+require_once APP_DIR . 'system/Request.php';
+require_once APP_DIR . 'traits/Validator.php';
+require_once APP_DIR . 'system/Router.php';
+//
+//$builder = new MySqlQueryBuilder();
+//
+//$userRepository = new UserRepository(Connector::getInstance(), $builder);
+//
+//echo "<pre>";
+//print_r($userRepository->find(8));
+//echo "<pre>";
 
 //$builder = new MySqlQueryBuilder();
 //$builder->select('users')
@@ -92,6 +99,26 @@ echo "<pre>";
 // U - Update
 // D - Delete
 
+$router = new Router;
 
+$router->addRoute('/login', [
+   'get' => 'AuthController@login',
+   'post' => 'AuthController@auth',
+]);
+
+$router->addRoute('/logout', [
+    'get' => 'AuthController@logout',
+]);
+
+$router->addRoute('/register', [
+    'get' => 'AuthController@register',
+    'post' => 'AuthController@registerProcess',
+]);
+
+$router->addRoute('/users', [
+    'put' => 'UserController@update'
+]);
+
+$router->processRoute(Request::getUrl(), Request::getMethod());
 
 

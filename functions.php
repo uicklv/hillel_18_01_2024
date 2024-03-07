@@ -1,4 +1,10 @@
 <?php
+
+function view(string $path, array $variables = []): bool
+{
+    $view = new View();
+    return $view->render($path, $variables);
+}
 function printer(string $text): void
 {
     echo strip_tags($text);
