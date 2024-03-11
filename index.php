@@ -1,5 +1,7 @@
 <?php
+session_start();
 
+define('APP_URL', 'http://localhost:8080/');
 define('APP_DIR', __DIR__ . '/');
 define('LOG_DIR', __DIR__ . '/logs/');
 define('CONTROLLERS_DIR', __DIR__ . '/controllers/');
@@ -21,6 +23,8 @@ require_once APP_DIR . 'database/MySqlQueryBuilder.php';
 require_once APP_DIR . 'database/Repository.php';
 require_once APP_DIR . 'database/UserRepository.php';
 require_once APP_DIR . 'system/Request.php';
+require_once APP_DIR . 'system/Session.php';
+require_once APP_DIR . 'system/Response.php';
 require_once APP_DIR . 'traits/Validator.php';
 require_once APP_DIR . 'system/Router.php';
 //

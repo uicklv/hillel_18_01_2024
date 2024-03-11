@@ -8,15 +8,19 @@
     <title>Login</title>
 </head>
 <body>
+    <?php showMessage('success') ?>
     <h3>Login</h3>
     <form action="/login" method="post">
+        <input type="hidden" value="123213123123123123123";
         <div>
             <label for="email">Email</label>
             <input type="email" name="email" id="email">
+            <?php showError('email'); ?>
         </div>
         <div>
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
+            <?php showError('password'); ?>
         </div>
         <input type="submit" value="Send">
     </form>

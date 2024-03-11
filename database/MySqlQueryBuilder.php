@@ -31,6 +31,17 @@ class MySqlQueryBuilder implements SQLQueryBuilder
         return $this;
     }
 
+    public function insert(string $table, array $data): SQLQueryBuilder
+    {
+        $this->reset();
+        $keys = array_keys($data);
+        $this->query->base = "INSERT INTO `$table` (`" . implode("`, `", $keys) . "`) VALUES (:" . implode(", :", $keys) . ")";
+        $this->query->values = $data;
+        $this->query->type = 'select';
+
+        return $this;
+    }
+
     public function limit(int $start, ?int $offset = null): SQLQueryBuilder
     {
        if ($this->query->type !== 'select') {

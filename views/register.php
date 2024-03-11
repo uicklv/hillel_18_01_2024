@@ -13,10 +13,12 @@
         <div>
             <label for="name">Name</label>
             <input type="text" name="name" id="name">
+            <?php showError('name'); ?>
         </div>
         <div>
             <label for="age">Age</label>
             <input type="number" step="1" min="1" max="200" name="age" id="age">
+            <?php showError('age'); ?>
         </div>
         <div>
             <label for="gender">Gender</label>
@@ -24,14 +26,17 @@
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
+            <?php showError('gender'); ?>
         </div>
         <div>
             <label for="email">Email</label>
             <input type="email" name="email" id="email">
+            <?php showError('email'); ?>
         </div>
         <div>
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
+            <?php showError('password'); ?>
         </div>
         <input type="submit" value="Send">
     </form>

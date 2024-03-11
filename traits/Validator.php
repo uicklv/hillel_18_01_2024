@@ -24,6 +24,16 @@ trait Validator
                 }
             }
         }
+
+        $this->checkErrors();
+    }
+
+    private function checkErrors()
+    {
+        if ($this->errors) {
+            Session::set('validation_errors', $this->errors);
+            Response::redirect(Request::getReferer());
+        }
     }
 
     private function parseRule(string $ruleString): array

@@ -1,5 +1,38 @@
 <?php
 
+function url(string $path): string
+{
+    $path = trim($path, '/');
+    return APP_URL . $path;
+}
+function showError(string $key): void
+{
+    if (Session::exists('validation_errors')) {
+        $errors = Session::get('validation_errors');
+        if (array_key_exists($key, $errors)) {
+            $html = '<div style="color: red;">';
+            foreach ($errors as $keyError => $error) {
+                if ($keyError === $key) {
+                    $html .= "- $error; <br>";
+                }
+            }
+            $html .= '</div>';
+            echo $html;
+
+            Session::removeError($key);
+        }
+    }
+}
+
+function showMessage(string $key): void
+{
+    if (Session::exists($key)) {
+        $message = Session::get($key);
+        echo "<div style='color: green'>$message</div>";
+        Session::remove($key);
+    }
+}
+
 function view(string $path, array $variables = []): bool
 {
     $view = new View();
